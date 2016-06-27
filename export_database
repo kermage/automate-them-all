@@ -1,0 +1,8 @@
+#!/system/bin/sh
+
+DB_USER=$1
+DB_PASS=$2
+DB_NAME=$3
+
+mysqldump --user=$DB_USER --password=$DB_PASS --databases $DB_NAME > $DB_NAME.sql
+zip $DB_NAME.sql.zip $DB_NAME.sql

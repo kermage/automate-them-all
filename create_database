@@ -1,0 +1,7 @@
+#!/system/bin/sh
+
+DB_USER=$1
+DB_PASS=$2
+DB_NAME=$3
+
+mysql --user=$DB_USER --password=$DB_PASS -e 'create database $DB_NAME;'

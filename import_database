@@ -1,0 +1,8 @@
+#!/system/bin/sh
+
+DB_USER=$1
+DB_PASS=$2
+DB_NAME=$3
+
+unzip -o $DB_NAME.sql.zip
+mysql --user=$DB_USER --password=$DB_PASS --database $DB_NAME < $DB_NAME.sql
