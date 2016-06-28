@@ -6,4 +6,4 @@ DB_USER=`grep DB_USER settings | sed 's/.*=//'`
 DB_PASS=`grep DB_PASS settings | sed 's/.*=//'`
 DB_NAME=`grep DB_NAME settings | sed 's/.*=//'`
 
-mysql --user=$DB_USER --password=$DB_PASS -e 'drop database $DB_NAME;'
+mysql --user=$DB_USER --password=$DB_PASS -e "drop database $DB_NAME;"
