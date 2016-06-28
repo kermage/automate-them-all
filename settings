@@ -29,6 +29,11 @@
 ###    DO NOT CHANGE anything below    ###
 ### unless you know what you are doing ###
 
+# Server Details
+SV_HOST=
+SV_USER=
+SV_PORT=
+
 # Database Details
 DB_USER=
 DB_PASS=
