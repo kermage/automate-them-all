@@ -1,0 +1,13 @@
+#!/system/bin/sh
+
+###    DO NOT CHANGE anything below    ###
+### unless you know what you are doing ###
+SV_HOST=`grep SV_HOST settings | sed 's/.*=//'`
+SV_USER=`grep SV_USER settings | sed 's/.*=//'`
+SV_PORT=`grep SV_PORT settings | sed 's/.*=//'`
+DB_USER=`grep DB_USER settings | sed 's/.*=//'`
+DB_PASS=`grep DB_PASS settings | sed 's/.*=//'`
+DB_NAME=`grep DB_NAME settings | sed 's/.*=//'`
+
+scp -P$SV_PORT $DB_NAME.sql.zip $SV_USER@$SV_HOST:~
+ssh $SV_USER@$SV_HOST -p$SV_PORT "unzip -o $DB_NAME.sql.zip && mysql --user=$DB_USER --password=$DB_PASS --database $DB_NAME < $DB_NAME.sql"
