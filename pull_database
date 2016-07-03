@@ -11,3 +11,4 @@ DB_NAME=`grep DB_NAME settings | sed 's/.*=//'`
 
 ssh $SV_USER@$SV_HOST -p$SV_PORT "mysqldump --user=$DB_USER --password=$DB_PASS --databases $DB_NAME > $DB_NAME.sql && zip $DB_NAME.sql.zip $DB_NAME.sql"
 scp -P$SV_PORT $SV_USER@$SV_HOST:$DB_NAME.sql.zip ./
+ssh $SV_USER@$SV_HOST -p$SV_PORT "rm $DB_NAME.sql $DB_NAME.sql.zip"
