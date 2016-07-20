@@ -36,21 +36,21 @@ function isFunction() {
 }
 
 function init() {
-    cp $REAL_DIRECTORY/settings settings
-
+    cp $REAL_DIRECTORY/gatas.cfg gatas.cfg
+    
     read -p "Server Host: " SV_HOST
     read -p "Server User: " SV_USER
     read -p "Server Port: " SV_PORT
     read -p "Database User: " DB_USER
     read -p "Database Pass: " DB_PASS
     read -p "Database Name: " DB_NAME
-
-    sed -i '/^SV_HOST/s/=.*/='$SV_HOST'/' settings
-    sed -i '/^SV_USER/s/=.*/='$SV_USER'/' settings
-    sed -i '/^SV_PORT/s/=.*/='$SV_PORT'/' settings
-    sed -i '/^DB_USER/s/=.*/='$DB_USER'/' settings
-    sed -i '/^DB_PASS/s/=.*/='$DB_PASS'/' settings
-    sed -i '/^DB_NAME/s/=.*/='$DB_NAME'/' settings
+    
+    sed -i '/^SV_HOST/s/=.*/='$SV_HOST'/' gatas.cfg
+    sed -i '/^SV_USER/s/=.*/='$SV_USER'/' gatas.cfg
+    sed -i '/^SV_PORT/s/=.*/='$SV_PORT'/' gatas.cfg
+    sed -i '/^DB_USER/s/=.*/='$DB_USER'/' gatas.cfg
+    sed -i '/^DB_PASS/s/=.*/='$DB_PASS'/' gatas.cfg
+    sed -i '/^DB_NAME/s/=.*/='$DB_NAME'/' gatas.cfg
 }
 
 if [ $# -gt 0 ]; then
