@@ -30,18 +30,39 @@
 ### unless you know what you are doing ###
 REAL_DIRECTORY=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-cp $REAL_DIRECTORY/settings settings
+function isFunction() {
+    declare -F $1 &> /dev/null
+    return $?
+}
 
-read -p "Server Host: " SV_HOST
-read -p "Server User: " SV_USER
-read -p "Server Port: " SV_PORT
-read -p "Database User: " DB_USER
-read -p "Database Pass: " DB_PASS
-read -p "Database Name: " DB_NAME
+function init() {
+    cp $REAL_DIRECTORY/settings settings
 
-sed -i '/^SV_HOST/s/=.*/='$SV_HOST'/' settings
-sed -i '/^SV_USER/s/=.*/='$SV_USER'/' settings
-sed -i '/^SV_PORT/s/=.*/='$SV_PORT'/' settings
-sed -i '/^DB_USER/s/=.*/='$DB_USER'/' settings
-sed -i '/^DB_PASS/s/=.*/='$DB_PASS'/' settings
-sed -i '/^DB_NAME/s/=.*/='$DB_NAME'/' settings
+    read -p "Server Host: " SV_HOST
+    read -p "Server User: " SV_USER
+    read -p "Server Port: " SV_PORT
+    read -p "Database User: " DB_USER
+    read -p "Database Pass: " DB_PASS
+    read -p "Database Name: " DB_NAME
+
+    sed -i '/^SV_HOST/s/=.*/='$SV_HOST'/' settings
+    sed -i '/^SV_USER/s/=.*/='$SV_USER'/' settings
+    sed -i '/^SV_PORT/s/=.*/='$SV_PORT'/' settings
+    sed -i '/^DB_USER/s/=.*/='$DB_USER'/' settings
+    sed -i '/^DB_PASS/s/=.*/='$DB_PASS'/' settings
+    sed -i '/^DB_NAME/s/=.*/='$DB_NAME'/' settings
+}
+
+if [ $# -gt 0 ]; then
+    COMMAND=$1
+    
+    if ( isFunction "$COMMAND" ); then
+        "$COMMAND"
+    else
+        COMMAND_FILE=$( ls ${REAL_DIRECTORY}/${COMMAND} 2> /dev/null | head -1 )
+        
+        if [ -r "$COMMAND_FILE" ]; then
+            sh "$COMMAND_FILE"
+        fi
+    fi
+fi
