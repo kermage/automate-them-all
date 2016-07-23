@@ -1,0 +1,11 @@
+#!/system/bin/sh
+
+###    DO NOT CHANGE anything below    ###
+### unless you know what you are doing ###
+DB_USER=`grep DB_USER gatas.cfg | sed 's/.*=//'`
+DB_PASS=`grep DB_PASS gatas.cfg | sed 's/.*=//'`
+DB_NAME=`grep DB_NAME gatas.cfg | sed 's/.*=//'`
+
+mysql --user=root -e "GRANT USAGE ON * . * TO '$DB_USER'@'localhost';"
+mysql --user=root -e "DROP USER '$DB_USER'@'localhost';"
+mysql --user=root -e "FLUSH PRIVILEGES;"
