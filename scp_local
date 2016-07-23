@@ -1,0 +1,9 @@
+#!/system/bin/sh
+
+###    DO NOT CHANGE anything below    ###
+### unless you know what you are doing ###
+SV_HOST=`grep SV_HOST gatas.cfg | sed 's/.*=//'`
+SV_USER=`grep SV_USER gatas.cfg | sed 's/.*=//'`
+SV_PORT=`grep SV_PORT gatas.cfg | sed 's/.*=//'`
+
+scp -P$SV_PORT $1 $SV_USER@$SV_HOST:$2
