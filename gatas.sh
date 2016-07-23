@@ -62,7 +62,7 @@ if [ $# -gt 0 ]; then
         COMMAND_FILE=$( ls ${REAL_DIRECTORY}/${COMMAND} 2> /dev/null | head -1 )
         
         if [ -r "$COMMAND_FILE" ]; then
-            sh "$COMMAND_FILE"
+            sh "$COMMAND_FILE" "${@: 2}"
         fi
     fi
 fi
