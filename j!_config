@@ -1,0 +1,13 @@
+#!/system/bin/sh
+
+###    DO NOT CHANGE anything below    ###
+### unless you know what you are doing ###
+DB_USER=`grep DB_USER gatas.cfg | sed 's/.*=//'`
+DB_PASS=`grep DB_PASS gatas.cfg | sed 's/.*=//'`
+DB_NAME=`grep DB_NAME gatas.cfg | sed 's/.*=//'`
+
+cp installation/configuration.php-dist configuration.php
+
+sed -i '/.*$user.*/s/'\'\''/'\'$DB_USER\''/' configuration.php
+sed -i '/.*$password.*/s/'\'\''/'\'$DB_PASS\''/' configuration.php
+sed -i '/.*$db.*/s/'\'\''/'\'$DB_NAME\''/' configuration.php
