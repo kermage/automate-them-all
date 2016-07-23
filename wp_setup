@@ -2,6 +2,11 @@
 
 ###    DO NOT CHANGE anything below    ###
 ### unless you know what you are doing ###
+WP_STABLE=4.5.3
+WP_VERSION=$1
+if [ -z "$WP_VERSION" ]; then
+	WP_VERSION=$WP_STABLE
+fi
 
-curl -O https://wordpress.org/wordpress-4.5.3.tar.gz
-tar -xf wordpress-4.5.3.tar.gz --strip-components=1
+curl -O https://wordpress.org/wordpress-${WP_VERSION}.tar.gz
+tar -xf wordpress-${WP_VERSION}.tar.gz --strip-components=1

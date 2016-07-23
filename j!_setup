@@ -2,6 +2,11 @@
 
 ###    DO NOT CHANGE anything below    ###
 ### unless you know what you are doing ###
+J_STABLE=3.6.0
+J_VERSION=$1
+if [ -z "$J_VERSION" ]; then
+	J_VERSION=$J_STABLE
+fi
 
-curl -L -O https://github.com/joomla/joomla-cms/releases/download/3.6.0/Joomla_3.6.0-Stable-Full_Package.tar.gz
-tar -xf Joomla_3.6.0-Stable-Full_Package.tar.gz
+curl -L -O https://github.com/joomla/joomla-cms/releases/download/${J_VERSION}/Joomla_${J_VERSION}-Stable-Full_Package.tar.gz
+tar -xf Joomla_${J_VERSION}-Stable-Full_Package.tar.gz
