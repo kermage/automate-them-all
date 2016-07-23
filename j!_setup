@@ -1,0 +1,7 @@
+#!/system/bin/sh
+
+###    DO NOT CHANGE anything below    ###
+### unless you know what you are doing ###
+
+curl -L -O https://github.com/joomla/joomla-cms/releases/download/3.6.0/Joomla_3.6.0-Stable-Full_Package.tar.gz
+tar -xf Joomla_3.6.0-Stable-Full_Package.tar.gz

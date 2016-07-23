@@ -1,0 +1,7 @@
+#!/system/bin/sh
+
+###    DO NOT CHANGE anything below    ###
+### unless you know what you are doing ###
+
+curl -O https://wordpress.org/wordpress-4.5.3.tar.gz
+tar -xf wordpress-4.5.3.tar.gz --strip-components=1
