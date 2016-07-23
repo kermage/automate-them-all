@@ -18,3 +18,7 @@ perl -pi -e'
         sub salt { join "", map $chars[ rand @chars ], 1 .. 64 }
     } s/put your unique phrase here/salt()/ge
 ' wp-config.php
+
+if [ -n "$1" ]; then
+	sed -i '/^$table_prefix.*/s/wp_/'$1'/' wp-config.php
+fi

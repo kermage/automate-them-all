@@ -13,3 +13,7 @@ sed -i '/.*$password.*/s/'\'\''/'\'$DB_PASS\''/' configuration.php
 sed -i '/.*$db.*/s/'\'\''/'\'$DB_NAME\''/' configuration.php
 SECRET=$( cat /dev/urandom | tr -dc a-zA-Z0-9 | head -c 16 )
 sed -i '/.*$secret.*/s/'\''.*'\''/'\'$SECRET\''/' configuration.php
+
+if [ -n "$1" ]; then
+	sed -i '/.*$dbprefix.*/s/jos_/'$1'/' configuration.php
+fi
