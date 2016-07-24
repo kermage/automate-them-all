@@ -1,0 +1,7 @@
+#!/system/bin/sh
+
+###    DO NOT CHANGE anything below    ###
+### unless you know what you are doing ###
+
+find . -type f -exec chmod 0644 {} +
+find . -type d -exec chmod 0755 {} +
