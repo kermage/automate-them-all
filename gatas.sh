@@ -49,7 +49,7 @@ function init() {
     sed -i '/^SV_HOST/s/=.*/='$SV_HOST'/' gatas.cfg
     sed -i '/^SV_USER/s/=.*/='$SV_USER'/' gatas.cfg
     sed -i '/^SV_PORT/s/=.*/='$SV_PORT'/' gatas.cfg
-    sed -i '/^RM_PATH/s/=.*/='$RM_PATH'/' gatas.cfg
+    sed -i '/^RM_PATH/s/=.*/='${RM_PATH//\//\\/}'/' gatas.cfg
     sed -i '/^DB_USER/s/=.*/='$DB_USER'/' gatas.cfg
     sed -i '/^DB_PASS/s/=.*/='$DB_PASS'/' gatas.cfg
     sed -i '/^DB_NAME/s/=.*/='$DB_NAME'/' gatas.cfg
