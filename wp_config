@@ -2,9 +2,9 @@
 
 ###    DO NOT CHANGE anything below    ###
 ### unless you know what you are doing ###
-DB_USER=`grep DB_USER gatas.cfg | sed 's/.*=//'`
-DB_PASS=`grep DB_PASS gatas.cfg | sed 's/.*=//'`
-DB_NAME=`grep DB_NAME gatas.cfg | sed 's/.*=//'`
+DB_USER=`grep '^DB_USER' gatas.cfg | sed 's/.*=//'`
+DB_PASS=`grep '^DB_PASS' gatas.cfg | sed 's/.*=//'`
+DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/.*=//'`
 
 cp wp-config-sample.php wp-config.php
 

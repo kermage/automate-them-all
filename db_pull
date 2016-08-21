@@ -4,12 +4,12 @@
 ### unless you know what you are doing ###
 REAL_DIRECTORY=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-SV_HOST=`grep SV_HOST gatas.cfg | sed 's/.*=//'`
-SV_USER=`grep SV_USER gatas.cfg | sed 's/.*=//'`
-SV_PORT=`grep SV_PORT gatas.cfg | sed 's/.*=//'`
-DB_USER=`grep DB_USER gatas.cfg | sed 's/.*=//'`
-DB_PASS=`grep DB_PASS gatas.cfg | sed 's/.*=//'`
-DB_NAME=`grep DB_NAME gatas.cfg | sed 's/.*=//'`
+SV_HOST=`grep '^SV_HOST' gatas.cfg | sed 's/.*=//'`
+SV_USER=`grep '^SV_USER' gatas.cfg | sed 's/.*=//'`
+SV_PORT=`grep '^SV_PORT' gatas.cfg | sed 's/.*=//'`
+DB_USER=`grep '^DB_USER' gatas.cfg | sed 's/.*=//'`
+DB_PASS=`grep '^DB_PASS' gatas.cfg | sed 's/.*=//'`
+DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/.*=//'`
 
 ssh $SV_USER@$SV_HOST -p$SV_PORT "mysqldump --user=$DB_USER --password=$DB_PASS --databases $DB_NAME > $DB_NAME.sql && zip $DB_NAME.sql.zip $DB_NAME.sql"
 scp -P$SV_PORT $SV_USER@$SV_HOST:$DB_NAME.sql.zip ./
