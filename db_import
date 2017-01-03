@@ -7,5 +7,5 @@ DB_PASS=`grep '^DB_PASS' gatas.cfg | sed 's/.*=//'`
 DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/.*=//'`
 
 unzip -o $DB_NAME.sql.zip
-mysql --user=$DB_USER --password=$DB_PASS --database $DB_NAME < $DB_NAME.sql
+mysql --user=$DB_USER --password=$DB_PASS --database $DB_NAME < $DB_NAME.sql 2> /dev/null | grep "Warning: Using a password"
 rm $DB_NAME.sql
