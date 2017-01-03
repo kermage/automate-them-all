@@ -1,0 +1,10 @@
+#!/system/bin/sh
+
+###    DO NOT CHANGE anything below    ###
+### unless you know what you are doing ###
+DB_USER=`grep '^DB_USER' gatas.cfg | sed 's/.*=//'`
+DB_PASS=`grep '^DB_PASS' gatas.cfg | sed 's/.*=//'`
+DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/.*=//'`
+
+TABLES=$( mysql --user=$DB_USER --password=$DB_PASS --database $DB_NAME -e 'SHOW TABLES' 2> /dev/null | grep "Warning: Using a password" | awk '{ print $1 }' | grep -v '^Tables' )
+for TABLE in $TABLES; do mysql --user=$DB_USER --password=$DB_PASS --database $DB_NAME -e "DROP TABLE $TABLE" 2> /dev/null | grep "Warning: Using a password"; done
