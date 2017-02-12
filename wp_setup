@@ -9,4 +9,4 @@ if [ -z "$WP_VERSION" ]; then
 fi
 
 curl -O https://wordpress.org/wordpress-${WP_VERSION}.tar.gz
-tar -xf wordpress-${WP_VERSION}.tar.gz --strip-components=1
+tar -xzf wordpress-${WP_VERSION}.tar.gz --strip-components=1

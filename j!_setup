@@ -9,4 +9,4 @@ if [ -z "$J_VERSION" ]; then
 fi
 
 curl -L -O https://github.com/joomla/joomla-cms/releases/download/${J_VERSION}/Joomla_${J_VERSION}-Stable-Full_Package.tar.gz
-tar -xf Joomla_${J_VERSION}-Stable-Full_Package.tar.gz
+tar -xzf Joomla_${J_VERSION}-Stable-Full_Package.tar.gz
