@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/bin/sh
 
 ###    DO NOT CHANGE anything below    ###
 ### unless you know what you are doing ###
@@ -16,5 +16,5 @@ COMMAND=$1
 COMMAND_FILE=$( ls ${REAL_DIRECTORY}/${COMMAND} 2> /dev/null | head -1 )
 
 if [ -r "$COMMAND_FILE" ]; then
-    ssh $SV_USER@$SV_HOST -p$SV_PORT "cd $RM_PATH && echo $( eval "echo -e \"`< $COMMAND_FILE`\"" )"
+	ssh $SV_USER@$SV_HOST -p$SV_PORT "cd $RM_PATH && echo $( eval "echo -e \"`< $COMMAND_FILE`\"" )"
 fi

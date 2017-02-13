@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/bin/sh
 
 ###    DO NOT CHANGE anything below    ###
 ### unless you know what you are doing ###
@@ -14,8 +14,8 @@ DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/.*=//'`
 sh $REAL_DIRECTORY/db_export
 scp -P$SV_PORT $DB_NAME.sql.zip $SV_USER@$SV_HOST:~
 ssh $SV_USER@$SV_HOST -p$SV_PORT bash -c "'
-    mysql --user=$DB_USER --password=$DB_PASS -e \"DROP DATABASE $DB_NAME;\"
-    mysql --user=$DB_USER --password=$DB_PASS -e \"CREATE DATABASE $DB_NAME;\"
-    unzip -o $DB_NAME.sql.zip && mysql --user=$DB_USER --password=$DB_PASS --database $DB_NAME < $DB_NAME.sql
-    rm $DB_NAME.sql $DB_NAME.sql.zip
+	mysql --user=$DB_USER --password=$DB_PASS -e \"DROP DATABASE $DB_NAME;\"
+	mysql --user=$DB_USER --password=$DB_PASS -e \"CREATE DATABASE $DB_NAME;\"
+	unzip -o $DB_NAME.sql.zip && mysql --user=$DB_USER --password=$DB_PASS --database $DB_NAME < $DB_NAME.sql
+	rm $DB_NAME.sql $DB_NAME.sql.zip
 '"

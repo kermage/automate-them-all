@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/bin/sh
 
 ###    DO NOT CHANGE anything below    ###
 ### unless you know what you are doing ###
@@ -12,11 +12,11 @@ sed -i '/.*DB_NAME.*/s/database_name_here/'$DB_NAME'/' wp-config.php
 sed -i '/.*DB_USER.*/s/username_here/'$DB_USER'/' wp-config.php
 sed -i '/.*DB_PASSWORD.*/s/password_here/'$DB_PASS'/' wp-config.php
 perl -pi -e'
-    BEGIN {
-        @chars = ("a" .. "z", "A" .. "Z", 0 .. 9);
-        push @chars, split //, "!@#$%^&*()-_ []{}<>~\`+=,.;:/?|";
-        sub salt { join "", map $chars[ rand @chars ], 1 .. 64 }
-    } s/put your unique phrase here/salt()/ge
+	BEGIN {
+		@chars = ("a" .. "z", "A" .. "Z", 0 .. 9);
+		push @chars, split //, "!@#$%^&*()-_ []{}<>~\`+=,.;:/?|";
+		sub salt { join "", map $chars[ rand @chars ], 1 .. 64 }
+	} s/put your unique phrase here/salt()/ge
 ' wp-config.php
 
 if [ -n "$1" ]; then
