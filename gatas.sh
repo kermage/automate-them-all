@@ -103,6 +103,10 @@ if [ $# -gt 0 ]; then
 
 		if [ -r "$COMMAND_FILE" ]; then
 			sh "$COMMAND_FILE" "${@: 2}"
+		else
+			echo "'$COMMAND' is not a gatas command. Use 'gatas <command>':"
+			ls ${REAL_DIRECTORY} --ignore='gatas.*'
+			exit 1
 		fi
 	fi
 fi
