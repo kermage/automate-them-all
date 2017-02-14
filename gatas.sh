@@ -58,7 +58,7 @@ function init() {
 function test() {
 	if [ ! -r "gatas.cfg" ]; then
 		echo "Configuration file 'gatas.cfg' does not exist. Run 'gatas init' first."
-		exit 1
+		return 1
 	fi
 
 	SV_HOST=`grep '^SV_HOST' gatas.cfg | sed 's/.*=//'`
@@ -106,7 +106,7 @@ if [ $# -gt 0 ]; then
 		else
 			echo "'$COMMAND' is not a gatas command. Use 'gatas <command>':"
 			ls ${REAL_DIRECTORY} --ignore='gatas.*'
-			exit 1
+			return 1
 		fi
 	fi
 fi
