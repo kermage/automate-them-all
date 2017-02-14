@@ -30,6 +30,13 @@
 ### unless you know what you are doing ###
 REAL_DIRECTORY=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
+
+function _gatas() {
+	opts=$( ls ${REAL_DIRECTORY} --ignore='gatas.*' )
+	opts="${opts} init test"
+	COMPREPLY=( $( compgen -W "${opts}" -- ${COMP_WORDS[COMP_CWORD]} ) )
+}
+
 function isFunction() {
 	declare -F $1 &> /dev/null
 	return $?
@@ -93,7 +100,7 @@ function test() {
 	fi
 }
 
-if [ $# -gt 0 ]; then
+function gatas() {
 	COMMAND=$1
 
 	if ( isFunction "$COMMAND" ); then
@@ -109,4 +116,6 @@ if [ $# -gt 0 ]; then
 			return 1
 		fi
 	fi
-fi
+}
+
+complete -F _gatas gatas
