@@ -33,7 +33,7 @@ REAL_DIRECTORY=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 function _gatas() {
 	opts=$( ls ${REAL_DIRECTORY} --ignore='gatas.*' )
-	opts="${opts} init test"
+	opts="${opts} init check"
 	COMPREPLY=( $( compgen -W "${opts}" -- ${COMP_WORDS[COMP_CWORD]} ) )
 }
 
@@ -62,7 +62,7 @@ function init() {
 	sed -i '/^DB_NAME/s/=.*/='$DB_NAME'/' gatas.cfg
 }
 
-function test() {
+function check() {
 	if [ ! -r "gatas.cfg" ]; then
 		echo "Configuration file 'gatas.cfg' does not exist. Run 'gatas init' first."
 		return 1
