@@ -1,0 +1,13 @@
+#!/bin/sh
+
+###    DO NOT CHANGE anything below    ###
+### unless you know what you are doing ###
+DB_USER=`grep '^DB_USER' gatas.cfg | sed 's/.*=//'`
+DB_PASS=`grep '^DB_PASS' gatas.cfg | sed 's/.*=//'`
+DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/.*=//'`
+DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/.*=//'`
+
+mysqldump --user=$DB_USER --password=$DB_PASS --database $DB_NAME > $DB_NAME.tmp.sql 2> /dev/null | grep "Warning: Using a password"
+sed -i "s/$1/$2/g" $DB_NAME.tmp.sql
+mysql --user=$DB_USER --password=$DB_PASS --database $DB_NAME < $DB_NAME.tmp.sql 2> /dev/null | grep "Warning: Using a password"
+rm $DB_NAME.tmp.sql
