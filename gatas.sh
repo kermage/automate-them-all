@@ -43,8 +43,6 @@ function isFunction() {
 }
 
 function init() {
-	cp $REAL_DIRECTORY/gatas.cfg gatas.cfg
-
 	read -p "Server Host: " SV_HOST
 	read -p "Server User: " SV_USER
 	read -p "Server Port: " SV_PORT
@@ -53,6 +51,7 @@ function init() {
 	read -p "Database Pass: " DB_PASS
 	read -p "Database Name: " DB_NAME
 
+	cp $REAL_DIRECTORY/gatas.cfg gatas.cfg
 	sed -i '/^SV_HOST/s/=.*/='$SV_HOST'/' gatas.cfg
 	sed -i '/^SV_USER/s/=.*/='$SV_USER'/' gatas.cfg
 	sed -i '/^SV_PORT/s/=.*/='$SV_PORT'/' gatas.cfg
