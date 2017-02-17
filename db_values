@@ -12,7 +12,7 @@ while [ $# -gt 0 ]; do
 	shift 2
 done
 
-mysqldump --user=$DB_USER --password=$DB_PASS --database $DB_NAME > $DB_NAME.tmp.sql 2> /dev/null | grep "Warning: Using a password"
+mysqldump --user=$DB_USER --password=$DB_PASS --database $DB_NAME > $DB_NAME.tmp.sql 2>&1 /dev/null | grep -v "Warning: Using a password"
 sed -i "$SUBS" $DB_NAME.tmp.sql
-mysql --user=$DB_USER --password=$DB_PASS --database $DB_NAME < $DB_NAME.tmp.sql 2> /dev/null | grep "Warning: Using a password"
+mysql --user=$DB_USER --password=$DB_PASS --database $DB_NAME < $DB_NAME.tmp.sql 2>&1 /dev/null | grep -v "Warning: Using a password"
 rm $DB_NAME.tmp.sql
