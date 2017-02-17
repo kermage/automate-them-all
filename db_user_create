@@ -6,6 +6,8 @@ DB_USER=`grep '^DB_USER' gatas.cfg | sed 's/.*=//'`
 DB_PASS=`grep '^DB_PASS' gatas.cfg | sed 's/.*=//'`
 DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/.*=//'`
 
-mysql --user=root -e "CREATE USER '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';"
-mysql --user=root -e "GRANT ALL PRIVILEGES ON $DB_NAME . * TO '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';"
-mysql --user=root -e "FLUSH PRIVILEGES;"
+mysql --user=root --execute="
+	CREATE USER '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';
+	GRANT ALL PRIVILEGES ON $DB_NAME . * TO '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';
+	FLUSH PRIVILEGES;
+"
