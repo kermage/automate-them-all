@@ -12,7 +12,12 @@ while [ $# -gt 0 ]; do
 	shift 2
 done
 
-mysqldump --user=$DB_USER --password=$DB_PASS --database $DB_NAME > $DB_NAME.tmp.sql 2>&1 /dev/null | grep -v "Warning: Using a password"
-sed -i "$SUBS" $DB_NAME.tmp.sql
-mysql --user=$DB_USER --password=$DB_PASS --database $DB_NAME < $DB_NAME.tmp.sql 2>&1 /dev/null | grep -v "Warning: Using a password"
-rm $DB_NAME.tmp.sql
+TMPFILE=`mktemp`
+echo -e "[client]\nuser=$DB_USER\npassword=$DB_PASS" > $TMPFILE
+
+mysqldump --defaults-file=$TMPFILE $DB_NAME > $TMPFILE.sql
+sed -i "$SUBS" $TMPFILE.sql
+mysql --defaults-file=$TMPFILE --database=$DB_NAME < $TMPFILE.sql
+rm $TMPFILE.sql
+
+rm -f $TMPFILE
