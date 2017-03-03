@@ -9,7 +9,20 @@ DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/.*=//'`
 TMPFILE=`mktemp`
 echo -e "[client]\nuser=$DB_USER\npassword=$DB_PASS" > $TMPFILE
 
-TABLES=$( mysql --defaults-file=$TMPFILE --database=$DB_NAME --execute='SHOW TABLES' | awk '{ print $1 }' | grep -v '^Tables' )
-for TABLE in $TABLES; do mysql --defaults-file=$TMPFILE --database=$DB_NAME --execute="DROP TABLE $TABLE"; done
+mysql --defaults-file=$TMPFILE --execute="
+	USE $DB_NAME;
+	SET FOREIGN_KEY_CHECKS = 0;
+	SET GROUP_CONCAT_MAX_LEN = 32768;
+	SET @tables = NULL;
+	SELECT GROUP_CONCAT( table_name ) INTO @tables
+	FROM information_schema.tables
+	WHERE table_schema = '$DB_NAME';
+
+	SET @tables = CONCAT( 'DROP TABLE IF EXISTS ', @tables );
+	PREPARE stmt FROM @tables;
+	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
+	SET FOREIGN_KEY_CHECKS = 1;
+"
 
 rm -f $TMPFILE
