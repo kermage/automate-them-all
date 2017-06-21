@@ -67,12 +67,12 @@ function check() {
 		return 1
 	fi
 
-	SV_HOST=`grep '^SV_HOST' gatas.cfg | sed 's/.*=//'`
-	SV_USER=`grep '^SV_USER' gatas.cfg | sed 's/.*=//'`
-	SV_PORT=`grep '^SV_PORT' gatas.cfg | sed 's/.*=//'`
-	DB_USER=`grep '^DB_USER' gatas.cfg | sed 's/.*=//'`
-	DB_PASS=`grep '^DB_PASS' gatas.cfg | sed 's/.*=//'`
-	DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/.*=//'`
+	SV_HOST=`grep '^SV_HOST' gatas.cfg | sed 's/[^=]*=//'`
+	SV_USER=`grep '^SV_USER' gatas.cfg | sed 's/[^=]*=//'`
+	SV_PORT=`grep '^SV_PORT' gatas.cfg | sed 's/[^=]*=//'`
+	DB_USER=`grep '^DB_USER' gatas.cfg | sed 's/[^=]*=//'`
+	DB_PASS=`grep '^DB_PASS' gatas.cfg | sed 's/[^=]*=//'`
+	DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/[^=]*=//'`
 
 	echo -n "Testing Local Database . . . "
 	mysql --user=$DB_USER --password=$DB_PASS $DB_NAME -e "exit" > /dev/null 2>&1
