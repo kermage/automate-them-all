@@ -75,7 +75,7 @@ function check() {
 	DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/[^=]*=//'`
 
 	echo -n "Testing Local Database . . . "
-	mysql --user=$DB_USER --password=$DB_PASS $DB_NAME -e "exit" > /dev/null 2>&1
+	mysql --user="$DB_USER" --password="$DB_PASS" $DB_NAME -e "exit" > /dev/null 2>&1
 	if [ "$?" -eq 0 ]; then
 		echo "PASSED!"
 	else
@@ -91,7 +91,7 @@ function check() {
 	fi
 
 	echo -n "Testing Remote Database . . . "
-	ssh $SV_USER@$SV_HOST -p$SV_PORT "mysql --user=$DB_USER --password=$DB_PASS $DB_NAME -e 'exit'" > /dev/null 2>&1
+	ssh $SV_USER@$SV_HOST -p$SV_PORT "mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" $DB_NAME -e 'exit'" > /dev/null 2>&1
 	if [ "$?" -eq 0 ]; then
 		echo 'PASSED!'
 	else
