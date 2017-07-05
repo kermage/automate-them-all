@@ -29,10 +29,11 @@
 ###    DO NOT CHANGE anything below    ###
 ### unless you know what you are doing ###
 REAL_DIRECTORY=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+LS=$( which ls )
 
 
 function _gatas() {
-	opts=$( ls ${REAL_DIRECTORY} --ignore='gatas.*' )
+	opts=$( $LS ${REAL_DIRECTORY} --ignore='gatas.*' )
 	opts="${opts} init check"
 	COMPREPLY=( $( compgen -W "${opts}" -- ${COMP_WORDS[COMP_CWORD]} ) )
 }
@@ -105,13 +106,13 @@ function gatas() {
 	if ( isFunction "$COMMAND" ); then
 		"$COMMAND"
 	else
-		COMMAND_FILE=$( ls ${REAL_DIRECTORY}/${COMMAND} 2> /dev/null | head -1 )
+		COMMAND_FILE=$( $LS ${REAL_DIRECTORY}/${COMMAND} 2> /dev/null | head -1 )
 
 		if [ -r "$COMMAND_FILE" ]; then
 			sh "$COMMAND_FILE" "${@: 2}"
 		else
 			echo "'$COMMAND' is not a gatas command. Use 'gatas <command>':"
-			ls ${REAL_DIRECTORY} --ignore='gatas.*'
+			$LS ${REAL_DIRECTORY} --ignore='gatas.*'
 			return 1
 		fi
 	fi
