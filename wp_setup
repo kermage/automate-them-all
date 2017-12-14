@@ -2,7 +2,7 @@
 
 ###    DO NOT CHANGE anything below    ###
 ### unless you know what you are doing ###
-WP_STABLE=4.9
+WP_STABLE=4.9.1
 WP_VERSION=$1
 if [ -z "$WP_VERSION" ]; then
 	WP_VERSION=$WP_STABLE
