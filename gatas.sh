@@ -63,11 +63,6 @@ function init() {
 }
 
 function check() {
-	if [ ! -r "gatas.cfg" ]; then
-		echo "Configuration file 'gatas.cfg' does not exist. Run 'gatas init' first."
-		return 1
-	fi
-
 	SV_HOST=`grep '^SV_HOST' gatas.cfg | sed 's/[^=]*=//'`
 	SV_USER=`grep '^SV_USER' gatas.cfg | sed 's/[^=]*=//'`
 	SV_PORT=`grep '^SV_PORT' gatas.cfg | sed 's/[^=]*=//'`
@@ -102,6 +97,12 @@ function check() {
 
 function gatas() {
 	COMMAND=$1
+
+	if [ ! -r "gatas.cfg" ]; then
+		echo "Configuration file 'gatas.cfg' does not exist. Run 'gatas init' first."
+		return 1
+	fi
+
 
 	if ( isFunction "$COMMAND" ); then
 		"$COMMAND"
