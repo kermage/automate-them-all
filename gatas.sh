@@ -98,11 +98,10 @@ function check() {
 function gatas() {
 	COMMAND=$1
 
-	if [ ! -r "gatas.cfg" ]; then
+	if [ ! -r "gatas.cfg" ] && [ "$COMMAND" != "init" ]; then
 		echo "Configuration file 'gatas.cfg' does not exist. Run 'gatas init' first."
 		return 1
 	fi
-
 
 	if ( isFunction "$COMMAND" ); then
 		"$COMMAND"
