@@ -106,6 +106,8 @@ function gatas() {
 
 	if [ "$GATAS_PATH" != "" ]; then
 		cd $GATAS_PATH
+	else
+		echo "Not a GATAS-ready directory (or any of the parent directories)"
 	fi
 
 	if [ ! -r "gatas.cfg" ] && [ "$COMMAND" != "init" ]; then
