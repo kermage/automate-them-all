@@ -97,7 +97,8 @@ function check() {
 
 function gatas() {
 	COMMAND=$1
-	GATAS_PATH=$( pwd )
+	CURRENT_PATH=$( pwd )
+	GATAS_PATH=$CURRENT_PATH
 
 	while [ "$GATAS_PATH" != "" ] && [ ! -e "$GATAS_PATH/gatas.cfg" ]; do
 		GATAS_PATH=${GATAS_PATH%/*}
@@ -125,6 +126,8 @@ function gatas() {
 			return 1
 		fi
 	fi
+
+	cd $CURRENT_PATH
 }
 
 complete -F _gatas gatas
