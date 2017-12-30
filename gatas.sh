@@ -97,6 +97,15 @@ function check() {
 
 function gatas() {
 	COMMAND=$1
+	GATAS_PATH=$( pwd )
+
+	while [ "$GATAS_PATH" != "" ] && [ ! -e "$GATAS_PATH/gatas.cfg" ]; do
+		GATAS_PATH=${GATAS_PATH%/*}
+	done
+
+	if [ "$GATAS_PATH" != "" ]; then
+		cd $GATAS_PATH
+	fi
 
 	if [ ! -r "gatas.cfg" ] && [ "$COMMAND" != "init" ]; then
 		echo "Configuration file 'gatas.cfg' does not exist. Run 'gatas init' first."
