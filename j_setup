@@ -2,7 +2,7 @@
 
 ###    DO NOT CHANGE anything below    ###
 ### unless you know what you are doing ###
-J_STABLE=3.8.5
+J_STABLE=$( curl --silent "https://downloads.joomla.org/api/v1/latest/cms" | grep -Po '"Joomla! 3","version":"\K[^"]*' )
 J_VERSION=$1
 if [ -z "$J_VERSION" ]; then
 	J_VERSION=$J_STABLE

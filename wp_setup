@@ -2,7 +2,7 @@
 
 ###    DO NOT CHANGE anything below    ###
 ### unless you know what you are doing ###
-WP_STABLE=4.9.4
+WP_STABLE=$( curl --silent "https://api.wordpress.org/core/version-check/1.7/" | grep -Po '"version":"\K[^"]*' | head -n 1 )
 WP_VERSION=$1
 if [ -z "$WP_VERSION" ]; then
 	WP_VERSION=$WP_STABLE
