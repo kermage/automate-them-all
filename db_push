@@ -7,13 +7,15 @@ REAL_DIRECTORY=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 SV_HOST=`grep '^SV_HOST' gatas.cfg | sed 's/[^=]*=//'`
 SV_USER=`grep '^SV_USER' gatas.cfg | sed 's/[^=]*=//'`
 SV_PORT=`grep '^SV_PORT' gatas.cfg | sed 's/[^=]*=//'`
+RM_PATH=`grep '^RM_PATH' gatas.cfg | sed 's/[^=]*=//'`
 DB_USER=`grep '^DB_USER' gatas.cfg | sed 's/[^=]*=//'`
 DB_PASS=`grep '^DB_PASS' gatas.cfg | sed 's/[^=]*=//'`
 DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/[^=]*=//'`
 
 sh $REAL_DIRECTORY/db_export
-scp -P$SV_PORT $DB_NAME.sql.zip $SV_USER@$SV_HOST:~
+scp -P$SV_PORT $DB_NAME.sql.zip $SV_USER@$SV_HOST:$RM_PATH
 ssh $SV_USER@$SV_HOST -p$SV_PORT bash -c "'
+	cd $RM_PATH
 	mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" -e \"DROP DATABASE $DB_NAME;\"
 	mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" -e \"CREATE DATABASE $DB_NAME;\"
 	unzip -o $DB_NAME.sql.zip && mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" --database $DB_NAME < $DB_NAME.sql
