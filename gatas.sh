@@ -48,27 +48,27 @@ function init() {
 	read -p "Server User: " SV_USER
 	read -p "Server Port: " SV_PORT
 	read -p "Remote Path: " RM_PATH
+	read -p "Database Name: " DB_NAME
 	read -p "Database User: " DB_USER
 	read -p "Database Pass: " DB_PASS
-	read -p "Database Name: " DB_NAME
 
 	cp $REAL_DIRECTORY/gatas.cfg gatas.cfg
 	sed -i '/^SV_HOST/s/=.*/='$SV_HOST'/' gatas.cfg
 	sed -i '/^SV_USER/s/=.*/='$SV_USER'/' gatas.cfg
 	sed -i '/^SV_PORT/s/=.*/='$SV_PORT'/' gatas.cfg
 	sed -i '/^RM_PATH/s/=.*/='${RM_PATH//\//\\/}'/' gatas.cfg
+	sed -i '/^DB_NAME/s/=.*/='$DB_NAME'/' gatas.cfg
 	sed -i '/^DB_USER/s/=.*/='$DB_USER'/' gatas.cfg
 	sed -i '/^DB_PASS/s/=.*/='$DB_PASS'/' gatas.cfg
-	sed -i '/^DB_NAME/s/=.*/='$DB_NAME'/' gatas.cfg
 }
 
 function check() {
 	SV_HOST=`grep '^SV_HOST' gatas.cfg | sed 's/[^=]*=//'`
 	SV_USER=`grep '^SV_USER' gatas.cfg | sed 's/[^=]*=//'`
 	SV_PORT=`grep '^SV_PORT' gatas.cfg | sed 's/[^=]*=//'`
+	DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/[^=]*=//'`
 	DB_USER=`grep '^DB_USER' gatas.cfg | sed 's/[^=]*=//'`
 	DB_PASS=`grep '^DB_PASS' gatas.cfg | sed 's/[^=]*=//'`
-	DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/[^=]*=//'`
 
 	echo -n "Testing Local Database . . . "
 	mysql --user="$DB_USER" --password="$DB_PASS" $DB_NAME -e "exit" > /dev/null 2>&1
