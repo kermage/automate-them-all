@@ -90,7 +90,11 @@ function check() {
 	fi
 
 	echo -n "Testing Remote Database . . . "
-	ssh $SV_USER@$SV_HOST -p$SV_PORT "mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" $DB_NAME -e 'exit'" > /dev/null 2>&1
+	if [ -z "$DB_HOST" ]; then
+		ssh $SV_USER@$SV_HOST -p$SV_PORT "mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" $DB_NAME -e 'exit'" > /dev/null 2>&1
+	else
+		mysql --user="$DB_USER" --password="$DB_PASS" --host="$DB_HOST" $DB_NAME -e "exit" > /dev/null 2>&1
+	fi
 	if [ "$?" -eq 0 ]; then
 		echo 'PASSED!'
 	else
