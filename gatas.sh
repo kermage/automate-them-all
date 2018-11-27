@@ -51,6 +51,7 @@ function init() {
 	read -p "Database Name: " DB_NAME
 	read -p "Database User: " DB_USER
 	read -p "Database Pass: " DB_PASS
+	read -p "Database Host: " DB_HOST
 
 	cp $REAL_DIRECTORY/gatas.cfg gatas.cfg
 	sed -i '/^SV_HOST/s/=.*/='$SV_HOST'/' gatas.cfg
@@ -60,6 +61,7 @@ function init() {
 	sed -i '/^DB_NAME/s/=.*/='$DB_NAME'/' gatas.cfg
 	sed -i '/^DB_USER/s/=.*/='$DB_USER'/' gatas.cfg
 	sed -i '/^DB_PASS/s/=.*/='$DB_PASS'/' gatas.cfg
+	sed -i '/^DB_HOST/s/=.*/='$DB_HOST'/' gatas.cfg
 }
 
 function check() {
@@ -69,6 +71,7 @@ function check() {
 	DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/[^=]*=//'`
 	DB_USER=`grep '^DB_USER' gatas.cfg | sed 's/[^=]*=//'`
 	DB_PASS=`grep '^DB_PASS' gatas.cfg | sed 's/[^=]*=//'`
+	DB_HOST=`grep '^DB_HOST' gatas.cfg | sed 's/[^=]*=//'`
 
 	echo -n "Testing Local Database . . . "
 	mysql --user="$DB_USER" --password="$DB_PASS" $DB_NAME -e "exit" > /dev/null 2>&1
