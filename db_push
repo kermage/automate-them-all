@@ -9,6 +9,19 @@ RM_PATH=`grep '^RM_PATH' gatas.cfg | sed 's/[^=]*=//'`
 DB_USER=`grep '^DB_USER' gatas.cfg | sed 's/[^=]*=//'`
 DB_PASS=`grep '^DB_PASS' gatas.cfg | sed 's/[^=]*=//'`
 DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/[^=]*=//'`
+DB_HOST=`grep '^DB_HOST' gatas.cfg | sed 's/[^=]*=//'`
+
+TMPFILE=`mktemp`
+echo -e "[client]\nuser=\"$DB_USER\"\npassword=\"$DB_PASS\"" > $TMPFILE
+
+if [ "$DB_HOST" != "localhost" ]; then
+	mysql --defaults-file=$TMPFILE --host="$DB_HOST" --execute="DROP DATABASE $DB_NAME;"
+	mysql --defaults-file=$TMPFILE --host="$DB_HOST" --execute="CREATE DATABASE $DB_NAME;"
+	unzip -o $DB_NAME.sql.zip
+	mysql --defaults-file=$TMPFILE --host="$DB_HOST" --database=$DB_NAME < $DB_NAME.sql
+	rm $DB_NAME.sql
+	exit 0
+fi
 
 if [ -z "$RM_PATH" ]; then
 	RM_PATH="~"
