@@ -9,7 +9,6 @@ DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/[^=]*=//'`
 TMPFILE=`mktemp`
 echo -e "[client]\nuser=\"$DB_USER\"\npassword=\"$DB_PASS\"" > $TMPFILE
 
-mysqldump --defaults-file=$TMPFILE $DB_NAME > $DB_NAME.sql
-zip $DB_NAME.sql.zip $DB_NAME.sql && rm $DB_NAME.sql
+mysqldump --defaults-file=$TMPFILE $DB_NAME | gzip > $DB_NAME.sql.gz
 
 rm -f $TMPFILE

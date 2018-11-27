@@ -15,8 +15,7 @@ TMPFILE=`mktemp`
 echo -e "[client]\nuser=\"$DB_USER\"\npassword=\"$DB_PASS\"" > $TMPFILE
 
 if [ "$DB_HOST" != "localhost" ]; then
-	mysqldump --defaults-file=$TMPFILE --host="$DB_HOST" $DB_NAME > $DB_NAME.sql
-	zip $DB_NAME.sql.zip $DB_NAME.sql && rm $DB_NAME.sql
+	mysqldump --defaults-file=$TMPFILE --host="$DB_HOST" $DB_NAME | gzip > $DB_NAME.sql.gz
 	exit 0
 fi
 
