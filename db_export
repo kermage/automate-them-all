@@ -10,7 +10,6 @@ TMPFILE=`mktemp`
 echo -e "[client]\nuser=\"$DB_USER\"\npassword=\"$DB_PASS\"" > $TMPFILE
 
 mysqldump --defaults-file=$TMPFILE $DB_NAME > $DB_NAME.sql
-zip $DB_NAME.sql.zip $DB_NAME.sql
-rm $DB_NAME.sql
+zip $DB_NAME.sql.zip $DB_NAME.sql && rm $DB_NAME.sql
 
 rm -f $TMPFILE
