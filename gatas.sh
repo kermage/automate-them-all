@@ -51,7 +51,9 @@ function init() {
 	read -p "Database Name: " DB_NAME
 	read -p "Database User: " DB_USER
 	read -p "Database Pass: " DB_PASS
-	read -p "Database Host: " DB_HOST
+	read -e -p "Database Host: " -i "localhost" DB_HOST
+
+	DB_HOST="${DB_HOST:-localhost}"
 
 	cp $REAL_DIRECTORY/gatas.cfg gatas.cfg
 	sed -i '/^SV_HOST/s/=.*/='$SV_HOST'/' gatas.cfg
@@ -90,7 +92,7 @@ function check() {
 	fi
 
 	echo -n "Testing Remote Database . . . "
-	if [ -z "$DB_HOST" ]; then
+	if [ "$DB_HOST" == "localhost" ]; then
 		ssh $SV_USER@$SV_HOST -p$SV_PORT "mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" $DB_NAME -e 'exit'" > /dev/null 2>&1
 	else
 		mysql --user="$DB_USER" --password="$DB_PASS" --host="$DB_HOST" $DB_NAME -e "exit" > /dev/null 2>&1
