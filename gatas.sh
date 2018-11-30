@@ -47,13 +47,14 @@ function init() {
 	read -p "Server Host: " SV_HOST
 	read -p "Server User: " SV_USER
 	read -e -p "Server Port: " -i "22" SV_PORT
-	read -p "Remote Path: " RM_PATH
+	read -e -p "Remote Path: " -i "~" RM_PATH
 	read -p "Database Name: " DB_NAME
 	read -p "Database User: " DB_USER
 	read -p "Database Pass: " DB_PASS
 	read -e -p "Database Host: " -i "localhost" DB_HOST
 
 	SV_PORT="${SV_PORT:-22}"
+	RM_PATH="${RM_PATH:-~}"
 	DB_HOST="${DB_HOST:-localhost}"
 
 	cp $REAL_DIRECTORY/gatas.cfg gatas.cfg
