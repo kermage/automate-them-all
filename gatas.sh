@@ -72,6 +72,7 @@ function check() {
 	SV_HOST=`grep '^SV_HOST' gatas.cfg | sed 's/[^=]*=//'`
 	SV_USER=`grep '^SV_USER' gatas.cfg | sed 's/[^=]*=//'`
 	SV_PORT=`grep '^SV_PORT' gatas.cfg | sed 's/[^=]*=//'`
+	RM_PATH=`grep '^RM_PATH' gatas.cfg | sed 's/[^=]*=//'`
 	DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/[^=]*=//'`
 	DB_USER=`grep '^DB_USER' gatas.cfg | sed 's/[^=]*=//'`
 	DB_PASS=`grep '^DB_PASS' gatas.cfg | sed 's/[^=]*=//'`
@@ -87,6 +88,14 @@ function check() {
 
 	echo -n "Testing SSH Connection . . . "
 	ssh $SV_USER@$SV_HOST -p$SV_PORT "exit" > /dev/null 2>&1
+	if [ "$?" -eq 0 ]; then
+		echo "PASSED!"
+	else
+		echo "FAILED!"
+	fi
+
+	echo -n "Testing Remote Path . . . "
+	ssh $SV_USER@$SV_HOST -p$SV_PORT "test -w $RM_PATH" > /dev/null 2>&1
 	if [ "$?" -eq 0 ]; then
 		echo "PASSED!"
 	else
