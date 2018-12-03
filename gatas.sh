@@ -52,10 +52,12 @@ function init() {
 	read -p "Database User: " DB_USER
 	read -p "Database Pass: " DB_PASS
 	read -e -p "Database Host: " -i "localhost" DB_HOST
+	read -e -p "Database Port: " -i "3306" DB_PORT
 
 	SV_PORT="${SV_PORT:-22}"
 	RM_PATH="${RM_PATH:-~}"
 	DB_HOST="${DB_HOST:-localhost}"
+	DB_PORT="${DB_PORT:-3306}"
 
 	cp $REAL_DIRECTORY/gatas.cfg gatas.cfg
 	sed -i '/^SV_HOST/s/=.*/='$SV_HOST'/' gatas.cfg
@@ -66,6 +68,7 @@ function init() {
 	sed -i '/^DB_USER/s/=.*/='$DB_USER'/' gatas.cfg
 	sed -i '/^DB_PASS/s/=.*/='$DB_PASS'/' gatas.cfg
 	sed -i '/^DB_HOST/s/=.*/='$DB_HOST'/' gatas.cfg
+	sed -i '/^DB_PORT/s/=.*/='$DB_PORT'/' gatas.cfg
 }
 
 function check() {
@@ -77,6 +80,7 @@ function check() {
 	DB_USER=`grep '^DB_USER' gatas.cfg | sed 's/[^=]*=//'`
 	DB_PASS=`grep '^DB_PASS' gatas.cfg | sed 's/[^=]*=//'`
 	DB_HOST=`grep '^DB_HOST' gatas.cfg | sed 's/[^=]*=//'`
+	DB_PORT=`grep '^DB_PORT' gatas.cfg | sed 's/[^=]*=//'`
 
 	echo -n "Testing Local Database . . . "
 	mysql --user="$DB_USER" --password="$DB_PASS" $DB_NAME -e "exit" > /dev/null 2>&1
@@ -106,7 +110,7 @@ function check() {
 	if [ "$DB_HOST" == "localhost" ]; then
 		ssh $SV_USER@$SV_HOST -p$SV_PORT "mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" $DB_NAME -e 'exit'" > /dev/null 2>&1
 	else
-		mysql --user="$DB_USER" --password="$DB_PASS" --host="$DB_HOST" $DB_NAME -e "exit" > /dev/null 2>&1
+		mysql --user="$DB_USER" --password="$DB_PASS" --host="$DB_HOST" --port="$DB_PORT" $DB_NAME -e "exit" > /dev/null 2>&1
 	fi
 	if [ "$?" -eq 0 ]; then
 		echo 'PASSED!'
