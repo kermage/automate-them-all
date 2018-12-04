@@ -1,16 +1,19 @@
-#!/bin/sh
+#!/bin/bash
 
 ###    DO NOT CHANGE anything below    ###
 ### unless you know what you are doing ###
 _PATH=.
 F_PERM=0644
 D_PERM=0755
+
 if [ -n "$1" ]; then
 	_PATH=$1
 fi
+
 if [ -n "$2" ]; then
 	F_PERM=$2
 fi
+
 if [ -n "$3" ]; then
 	D_PERM=$3
 fi
