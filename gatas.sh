@@ -28,8 +28,10 @@
 
 ###    DO NOT CHANGE anything below    ###
 ### unless you know what you are doing ###
-REAL_DIRECTORY=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-LS=$( which ls )
+SCRIPT_SOURCE=${BASH_SOURCE[0]}
+SCRIPT_SOURCE=${SCRIPT_SOURCE:-$0}
+REAL_DIRECTORY=$( cd "$( dirname "$SCRIPT_SOURCE" )" && pwd )
+LS=$( /bin/which ls )
 
 
 function _gatas() {
