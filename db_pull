@@ -1,0 +1,10 @@
+#!/bin/bash
+
+###    DO NOT CHANGE anything below    ###
+### unless you know what you are doing ###
+REAL_DIRECTORY=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+sh $REAL_DIRECTORY/db_download
+sh $REAL_DIRECTORY/db_drop
+sh $REAL_DIRECTORY/db_create
+sh $REAL_DIRECTORY/db_import
