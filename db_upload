@@ -14,16 +14,7 @@ DB_HOST=`grep '^DB_HOST' gatas.cfg | sed 's/[^=]*=//'`
 TMPFILE=`mktemp`
 echo -e "[client]\nuser=\"$DB_USER\"\npassword=\"$DB_PASS\"" > $TMPFILE
 
-sh $REAL_DIRECTORY/db_upload
+sh $REAL_DIRECTORY/db_export
+scp -P$SV_PORT $DB_NAME.sql.gz $SV_USER@$SV_HOST:$RM_PATH
 
-if [ "$DB_HOST" != "localhost" ]; then
-	mysql --defaults-file=$TMPFILE --host="$DB_HOST" --port="$DB_PORT" --execute="DROP DATABASE $DB_NAME; CREATE DATABASE $DB_NAME;"
-	gunzip < $DB_NAME.sql.gz | mysql --defaults-file=$TMPFILE --host="$DB_HOST" --port="$DB_PORT" --database="$DB_NAME"
-	exit 0
-fi
-
-ssh $SV_USER@$SV_HOST -p$SV_PORT bash -c "'
-	cd $RM_PATH
-	mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" -e \"DROP DATABASE $DB_NAME; CREATE DATABASE $DB_NAME;\"
-	gunzip < $DB_NAME.sql.gz | mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" --database=\"$DB_NAME\"
-'"
+rm -f $TMPFILE
