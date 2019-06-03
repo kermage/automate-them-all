@@ -14,6 +14,8 @@ DB_HOST=`grep '^DB_HOST' gatas.cfg | sed 's/[^=]*=//'`
 TMPFILE=`mktemp`
 echo -e "[client]\nuser=\"$DB_USER\"\npassword=\"$DB_PASS\"" > $TMPFILE
 
+sh $REAL_DIRECTORY/db_export
+
 scp -P$SV_PORT $DB_NAME.sql.gz $SV_USER@$SV_HOST:$RM_PATH
 
 if [ "$DB_HOST" != "localhost" ]; then
