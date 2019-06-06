@@ -2,6 +2,7 @@
 
 ###    DO NOT CHANGE anything below    ###
 ### unless you know what you are doing ###
+REAL_DIRECTORY=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 SV_HOST=`grep '^SV_HOST' gatas.cfg | sed 's/[^=]*=//'`
 SV_USER=`grep '^SV_USER' gatas.cfg | sed 's/[^=]*=//'`
 SV_PORT=`grep '^SV_PORT' gatas.cfg | sed 's/[^=]*=//'`
@@ -15,6 +16,6 @@ TMPFILE=`mktemp`
 echo -e "[client]\nuser=\"$DB_USER\"\npassword=\"$DB_PASS\"" > $TMPFILE
 
 sh $REAL_DIRECTORY/db_export
-scp -P$SV_PORT $DB_NAME.sql.gz $SV_USER@$SV_HOST:$RM_PATH
+sh $REAL_DIRECTORY/scp_local $DB_NAME.sql.gz $RM_PATH
 
 rm -f $TMPFILE
