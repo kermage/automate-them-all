@@ -21,3 +21,5 @@ fi
 
 ssh $SV_USER@$SV_HOST -p$SV_PORT "cd $RM_PATH && mysqldump --user=\"$DB_USER\" --password=\"$DB_PASS\" \"$DB_NAME\" | gzip > $DB_NAME.sql.gz"
 scp -P$SV_PORT $SV_USER@$SV_HOST:$RM_PATH/$DB_NAME.sql.gz ./
+
+rm -f $TMPFILE

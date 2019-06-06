@@ -27,3 +27,5 @@ ssh $SV_USER@$SV_HOST -p$SV_PORT bash -c "'
 	mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" -e \"DROP DATABASE $DB_NAME; CREATE DATABASE $DB_NAME;\"
 	gunzip < $DB_NAME.sql.gz | mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" --database=\"$DB_NAME\"
 '"
+
+rm -f $TMPFILE
