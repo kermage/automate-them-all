@@ -16,10 +16,9 @@ echo -e "[client]\nuser=\"$DB_USER\"\npassword=\"$DB_PASS\"" > $TMPFILE
 
 if [ "$DB_HOST" != "localhost" ]; then
 	mysqldump --defaults-file=$TMPFILE --host="$DB_HOST" --port="$DB_PORT" "$DB_NAME" | gzip > $DB_NAME.sql.gz
-	exit 0
+else
+	ssh $SV_USER@$SV_HOST -p$SV_PORT "cd $RM_PATH && mysqldump --user=\"$DB_USER\" --password=\"$DB_PASS\" \"$DB_NAME\" | gzip > $DB_NAME.sql.gz"
+	scp -P$SV_PORT $SV_USER@$SV_HOST:$RM_PATH/$DB_NAME.sql.gz ./
 fi
-
-ssh $SV_USER@$SV_HOST -p$SV_PORT "cd $RM_PATH && mysqldump --user=\"$DB_USER\" --password=\"$DB_PASS\" \"$DB_NAME\" | gzip > $DB_NAME.sql.gz"
-scp -P$SV_PORT $SV_USER@$SV_HOST:$RM_PATH/$DB_NAME.sql.gz ./
 
 rm -f $TMPFILE

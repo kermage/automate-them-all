@@ -19,13 +19,12 @@ sh $REAL_DIRECTORY/db_upload
 if [ "$DB_HOST" != "localhost" ]; then
 	mysql --defaults-file=$TMPFILE --host="$DB_HOST" --port="$DB_PORT" --execute="DROP DATABASE $DB_NAME; CREATE DATABASE $DB_NAME;"
 	gunzip < $DB_NAME.sql.gz | mysql --defaults-file=$TMPFILE --host="$DB_HOST" --port="$DB_PORT" --database="$DB_NAME"
-	exit 0
+else
+	ssh $SV_USER@$SV_HOST -p$SV_PORT bash -c "'
+		cd $RM_PATH
+		mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" -e \"DROP DATABASE $DB_NAME; CREATE DATABASE $DB_NAME;\"
+		gunzip < $DB_NAME.sql.gz | mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" --database=\"$DB_NAME\"
+	'"
 fi
-
-ssh $SV_USER@$SV_HOST -p$SV_PORT bash -c "'
-	cd $RM_PATH
-	mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" -e \"DROP DATABASE $DB_NAME; CREATE DATABASE $DB_NAME;\"
-	gunzip < $DB_NAME.sql.gz | mysql --user=\"$DB_USER\" --password=\"$DB_PASS\" --database=\"$DB_NAME\"
-'"
 
 rm -f $TMPFILE
