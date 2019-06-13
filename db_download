@@ -2,7 +2,9 @@
 
 ###    DO NOT CHANGE anything below    ###
 ### unless you know what you are doing ###
-REAL_DIRECTORY=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+SCRIPT_SOURCE=${BASH_SOURCE[0]}
+SCRIPT_SOURCE=${SCRIPT_SOURCE:-$0}
+REAL_DIRECTORY=$( cd "$( dirname "$SCRIPT_SOURCE" )" && pwd )
 SV_HOST=`grep '^SV_HOST' gatas.cfg | sed 's/[^=]*=//'`
 SV_USER=`grep '^SV_USER' gatas.cfg | sed 's/[^=]*=//'`
 SV_PORT=`grep '^SV_PORT' gatas.cfg | sed 's/[^=]*=//'`
