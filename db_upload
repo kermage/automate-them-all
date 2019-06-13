@@ -13,7 +13,7 @@ DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/[^=]*=//'`
 TMPFILE=`mktemp`
 echo -e "[client]\nuser=\"$DB_USER\"\npassword=\"$DB_PASS\"" > $TMPFILE
 
-sh $REAL_DIRECTORY/db_export
-sh $REAL_DIRECTORY/scp_local $DB_NAME.sql.gz $RM_PATH
+bash $REAL_DIRECTORY/db_export
+bash $REAL_DIRECTORY/scp_local $DB_NAME.sql.gz $RM_PATH
 
 rm -f $TMPFILE

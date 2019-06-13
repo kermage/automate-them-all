@@ -6,7 +6,7 @@ SCRIPT_SOURCE=${BASH_SOURCE[0]}
 SCRIPT_SOURCE=${SCRIPT_SOURCE:-$0}
 REAL_DIRECTORY=$( cd "$( dirname "$SCRIPT_SOURCE" )" && pwd )
 
-sh $REAL_DIRECTORY/db_download
-sh $REAL_DIRECTORY/db_drop
-sh $REAL_DIRECTORY/db_create
-sh $REAL_DIRECTORY/db_import
+bash $REAL_DIRECTORY/db_download
+bash $REAL_DIRECTORY/db_drop
+bash $REAL_DIRECTORY/db_create
+bash $REAL_DIRECTORY/db_import

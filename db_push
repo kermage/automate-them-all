@@ -17,7 +17,7 @@ DB_HOST=`grep '^DB_HOST' gatas.cfg | sed 's/[^=]*=//'`
 TMPFILE=`mktemp`
 echo -e "[client]\nuser=\"$DB_USER\"\npassword=\"$DB_PASS\"" > $TMPFILE
 
-sh $REAL_DIRECTORY/db_upload
+bash $REAL_DIRECTORY/db_upload
 
 if [ "$DB_HOST" != "localhost" ]; then
 	mysql --defaults-file=$TMPFILE --host="$DB_HOST" --port="$DB_PORT" --execute="DROP DATABASE $DB_NAME; CREATE DATABASE $DB_NAME;"

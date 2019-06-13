@@ -21,7 +21,7 @@ if [ "$DB_HOST" != "localhost" ]; then
 	mysqldump --defaults-file=$TMPFILE --host="$DB_HOST" --port="$DB_PORT" "$DB_NAME" | gzip > $DB_NAME.sql.gz
 else
 	ssh $SV_USER@$SV_HOST -p$SV_PORT "cd $RM_PATH && mysqldump --user=\"$DB_USER\" --password=\"$DB_PASS\" \"$DB_NAME\" | gzip > $DB_NAME.sql.gz"
-	sh $REAL_DIRECTORY/scp_remote $RM_PATH/$DB_NAME.sql.gz ./
+	bash $REAL_DIRECTORY/scp_remote $RM_PATH/$DB_NAME.sql.gz ./
 fi
 
 rm -f $TMPFILE
