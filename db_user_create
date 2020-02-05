@@ -8,6 +8,6 @@ DB_NAME=`grep '^DB_NAME' gatas.cfg | sed 's/[^=]*=//'`
 
 mysql --user=root --execute="
 	CREATE USER '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';
-	GRANT ALL PRIVILEGES ON $DB_NAME . * TO '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';
+	GRANT ALL PRIVILEGES ON $DB_NAME . * TO '$DB_USER'@'localhost';
 	FLUSH PRIVILEGES;
 "
