@@ -121,6 +121,18 @@ function check() {
 	fi
 }
 
+function requiresConfig() {
+	special=(init set_perm j_setup wp_setup)
+
+	for command in "${special[@]}"; do
+		if [[ $command = "$1" ]]; then
+			return 1
+		fi
+	done
+
+	return 0
+}
+
 function gatas() {
 	COMMAND=$1
 	CURRENT_PATH=$( pwd )
@@ -132,11 +144,11 @@ function gatas() {
 
 	if [ "$GATAS_PATH" != "" ]; then
 		cd $GATAS_PATH
-	elif [ "$COMMAND" != "init" ]; then
+	elif ( requiresConfig "$COMMAND" ); then
 		echo "Not a GATAS-ready directory (or any of the parent directories)"
 	fi
 
-	if [ ! -r "gatas.cfg" ] && [ "$COMMAND" != "init" ]; then
+	if [ ! -r "gatas.cfg" ] && ( requiresConfig "$COMMAND" ); then
 		echo "Configuration file 'gatas.cfg' does not exist. Run 'gatas init' first."
 		return 1
 	fi
