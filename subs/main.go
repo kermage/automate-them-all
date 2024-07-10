@@ -12,25 +12,34 @@ import (
 )
 
 func main() {
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Enter the full path to process: ")
-	fullPath, _ := reader.ReadString('\n')
+	var fullPath string
+	var srtFilename string
 
-	if (fullPath == "\n") {
-		log.Fatal("Error unspecified path to pricess")
+	getInput(&fullPath, "Enter the full path to process: ", 0)
+	if (fullPath == "") {
+		log.Fatal("Error unspecified path to process")
 	}
 
-	fmt.Print("Enter the wanted SRT file: ")
-	srtFilename, _ := reader.ReadString('\n')
-
-	if (srtFilename == "\n") {
+	getInput(&srtFilename, "Enter the wanted SRT file: ", 1)
+	if (srtFilename == "") {
 		log.Fatal("Error unspecified SRT file")
 	}
 
-	srtFilename = strings.TrimSpace(srtFilename)
-	srtFilename = strings.TrimSuffix(srtFilename, ".srt") + ".srt"
+	handleContents(fullPath, strings.TrimSuffix(srtFilename, ".srt") + ".srt")
+}
 
-	handleContents(strings.TrimSpace(fullPath), srtFilename)
+func getInput(variable *string, prompt string, index int) {
+	args := os.Args[1:]
+
+	if index < len(args) {
+		*variable = args[index]
+		return
+	}
+
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print(prompt)
+	temp, _ := reader.ReadString('\n')
+	*variable = strings.TrimSpace(temp)
 }
 
 func getContents(directory string) []fs.DirEntry {
