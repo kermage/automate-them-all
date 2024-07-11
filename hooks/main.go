@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	HOOKS_DIR = ".hooks"
+	HOOKS_DIR  = ".hooks"
 	HOOKS_PERM = 0755
 )
 
@@ -37,7 +37,7 @@ func main() {
 	err = initDir(path)
 
 	if err != nil {
-		log.Println(err)
+		log.Fatalln(err)
 	}
 }
 
@@ -55,7 +55,7 @@ func initDir(path string) error {
 	cmd.Dir = basePath
 	_, err := cmd.Output()
 
-	if (err != nil) {
+	if err != nil {
 		return err
 	}
 
