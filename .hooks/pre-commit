@@ -1,0 +1,2 @@
+echo "Hello from $0 script"
+echo ""
