@@ -31,7 +31,7 @@
 SCRIPT_SOURCE=${BASH_SOURCE[0]}
 SCRIPT_SOURCE=${SCRIPT_SOURCE:-$0}
 REAL_DIRECTORY=$( cd "$( dirname "$SCRIPT_SOURCE" )" && pwd )
-LS=$( /bin/which ls )
+LS=$( which ls )
 
 
 function _gatas() {
