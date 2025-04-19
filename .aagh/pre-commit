@@ -1,0 +1,13 @@
+files=$(git diff --cached --name-only --diff-filter=ACM | { grep '.go$' || true; })
+[ -z "$files" ] && exit 0
+
+failed=$(gofmt -l $files)
+[ -z "$failed" ] && exit 0
+
+echo >&2 "Go files must be formatted with gofmt. Please run:"
+
+for fn in $failed; do
+	echo >&2 "  gofmt -w $fn"
+done
+
+exit 1
