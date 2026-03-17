@@ -14,8 +14,10 @@ var rootCmd = &cobra.Command{
 
 func init() {
 	cli.SetupGhfdCmd()
+	cli.SetupCloakCmd()
 	rootCmd.AddCommand(cli.GhfdCmd)
 	rootCmd.AddCommand(cli.SrtfCmd)
+	rootCmd.AddCommand(cli.CloakCmd)
 }
 
 func main() {
